@@ -35,6 +35,30 @@ class SnakeLadder:
 	def getPlayerNum(self):
 		return self.playerNum
 
+# Function to handle the players turn
+def gameWinner(inPlayer):
+	global winner
+	# check for game winner
+	if inPlayer.getPosition() == 100:
+
+		# If Computer is the Winner
+		if numPlayers == 2 and inPlayer.playerNum == 1:
+			print("Computer is the Winner!")
+			winner = True
+		else:
+			print("Player %i is the Winner!" % inPlayer.getPlayerNum())
+			winner = True
+
+	# run dice rolls and movements
+	if winner == False:
+		print("\n----Player %i Hit enter to roll----" % inPlayer.getPlayerNum())
+		# Uncomment to require space to be pressed before jumping turns
+		# input()
+		roll = rollDice()
+		print("You rolled: %i" % roll)
+		movePlayer(inPlayer, roll)
+		checkPosition(inPlayer)
+
 # Handle player movements
 def movePlayer(inPlayer, roll):
 	if inPlayer.getPosition() + roll <= 100:
@@ -42,6 +66,17 @@ def movePlayer(inPlayer, roll):
 		print("You are at spot %i" % inPlayer.getPosition())
 	else:
 		print("You rolled too far")
+
+
+# Checks player landing position and adjusts if snake or ladder
+def checkPosition(inPlayer):
+	for pos in SnLadDict:
+		if pos == inPlayer.getPosition():
+			if pos < SnLadDict[pos]:
+				print("You climbed a Ladder to spot %i" % SnLadDict[pos])
+			else:
+				print("You rode a Snake to spot %i" % SnLadDict[pos])
+			inPlayer.updatePosition(SnLadDict[pos])
 
 # Program entrance
 if __name__ == '__main__':
