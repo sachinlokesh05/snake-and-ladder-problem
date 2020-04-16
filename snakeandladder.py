@@ -35,6 +35,14 @@ class SnakeLadder:
 	def getPlayerNum(self):
 		return self.playerNum
 
+# Handle player movements
+def movePlayer(inPlayer, roll):
+	if inPlayer.getPosition() + roll <= 100:
+		inPlayer.updatePosition(inPlayer.getPosition() + roll)
+		print("You are at spot %i" % inPlayer.getPosition())
+	else:
+		print("You rolled too far")
+
 # Program entrance
 if __name__ == '__main__':
 	global winner
