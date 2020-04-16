@@ -59,6 +59,10 @@ def gameWinner(inPlayer):
 		movePlayer(inPlayer, roll)
 		checkPosition(inPlayer)
 
+# Function to return the Integer value of a 6 side dice roll
+def rollDice():
+    return random.randint(1,6)
+
 # Handle player movements
 def movePlayer(inPlayer, roll):
 	if inPlayer.getPosition() + roll <= 100:
@@ -83,6 +87,7 @@ if __name__ == '__main__':
 	global winner
 	winner = False
 	numPlayers = int(input('Enter number of players: '))
+	playerList = []
 
 	# If only one player is playing ,then second player is computer
 	if numPlayers == 1 :
@@ -92,3 +97,8 @@ if __name__ == '__main__':
 
 	for i in range(0,numPlayers):
 		playerList.append(SnakeLadder(i + 1))
+
+	while winner == False:
+		for i in playerList:
+			if winner == False:
+				gameWinner(i)
